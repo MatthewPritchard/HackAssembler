@@ -10,22 +10,22 @@ def assemble(script):
         "THAT": 4,
         "SCREEN": 16384,
         "KBD": 24576,
-        "R0": "0",
-        "R1": "1",
-        "R2": "2",
-        "R3": "3",
-        "R4": "4",
-        "R5": "5",
-        "R6": "6",
-        "R7": "7",
-        "R8": "8",
-        "R9": "9",
-        "R10": "10",
-        "R11": "11",
-        "R12": "12",
-        "R13": "13",
-        "R14": "14",
-        "R15": "15"
+        "R0": 0,
+        "R1": 1,
+        "R2": 2,
+        "R3": 3,
+        "R4": 4,
+        "R5": 5,
+        "R6": 6,
+        "R7": 7,
+        "R8": 8,
+        "R9": 9,
+        "R10": 10,
+        "R11": 11,
+        "R12": 12,
+        "R13": 13,
+        "R14": 14,
+        "R15": 15
     }
     redo = []
     output = []
@@ -34,7 +34,7 @@ def assemble(script):
         stripped: str = uncommented.strip() # remove leading and trailing whitespace could possibly just replace() all
         if not stripped:
             continue
-        elif stripped.startswith("@"):
+        elif stripped.startswith("@"): # Address commands
             if stripped[1:].isdigit():
                 output.append(format(int(stripped[1:]), '0>16b'))
             else:
@@ -43,7 +43,7 @@ def assemble(script):
                 else:
                     redo.append(len(output))
                     output.append(stripped[1:])
-        elif stripped.startswith("(") and stripped.endswith(")"):
+        elif stripped.startswith("(") and stripped.endswith(")"): # Labels
             symbol = stripped[1:-1]
             symbols[symbol] = str(len(output))
         else: # command
